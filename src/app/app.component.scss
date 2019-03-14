@@ -1,0 +1,10 @@
+.main-card {
+    display: flex;
+    padding: 20px;
+    width: 27%;
+    height: 80%;
+}
+.main-card > mat-card-actions {
+    width: 100%;
+    margin: 0;
+}
