@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Anruf</h1>
+<div>
+  <mat-spinner *ngIf="processing"></mat-spinner>
+  <div *ngIf="calling">Zum Auflegen Knopf oder außerhalb des Fensters drücken.</div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="hangUp(false)" cdkFocusInitial>Auflegen</button>
+</div>

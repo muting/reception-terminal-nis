@@ -1,10 +1,29 @@
 .main-card {
-    display: flex;
-    padding: 20px;
-    width: 27%;
-    height: 80%;
+    display: block;
+    width: 25%;
+    min-height: 380px;
+    margin: 16px;
 }
 .main-card > mat-card-actions {
     width: 100%;
     margin: 0;
+}
+.smokes {
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    vertical-align: bottom;
+    z-index: -1;
+    opacity: 0.8;
+}
+.mat-card-title {
+    margin-top: 30px!important;
+    margin-bottom: 50px;
+}
+.mat-card-image {
+    max-width: 75%;
+    margin-bottom: 50px;
+}
+.mat-card-actions {
+    margin-bottom: 30px!important;
 }

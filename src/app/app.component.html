@@ -1,13 +1,25 @@
 <div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <audio id="webrtc_audio" autoplay="autoplay"></audio>
-  <mat-card class="main-card">
-    <mat-card-actions>
-      <button *ngIf="!calling" mat-button (click)="Call()">Call</button>
-      <button *ngIf="calling"mat-button (click)="HangUp()">HangUp</button>
-    </mat-card-actions>
-  </mat-card>
+  <h1 class="mat-display-1" style="margin-top: 40px; margin-bottom: 50px;">Willkommen bei Diebold Nixdorf</h1>
+  <div fxLayout="rows" fxLayoutAlign="center">
+    <mat-card class="main-card" (click)="openCall(this.deliveryNumber)">
+      <mat-card-title>
+        Warenannahme
+      </mat-card-title>
+      <img mat-card-image src="../assets/box.svg">
+    </mat-card>
+    <mat-card class="main-card" (click)="openCall(this.visitorNumber)">
+      <mat-card-title>
+        Besucher
+      </mat-card-title>
+      <img mat-card-image src="../assets/handshake.svg">
+    </mat-card>
+    <mat-card class="main-card">
+      <mat-card-title>
+        Mitarbeiter
+      </mat-card-title>
+      <img mat-card-image src="../assets/team.svg">
+    </mat-card>
+  </div>
 </div>
 <router-outlet></router-outlet>
+<img src="../assets/smokes.jpg" class="smokes"/>

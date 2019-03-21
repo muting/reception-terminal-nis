@@ -1,3 +1,9 @@
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+html {
+    height: 100%;
+}
 body {
     background: #fafafa;
+    margin: 0px;
 }
