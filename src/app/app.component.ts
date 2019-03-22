@@ -1,8 +1,14 @@
 import { Component, OnInit} from '@angular/core';
 import { CallDialog } from './components/calldialog';
+import { ContactsDialog } from './components/contactsdialog';
 import { MatDialog } from '@angular/material';
 import { MatSnackBar } from '@angular/material/snack-bar'; 
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+
+export interface ContactData {
+  name: string;
+  number: string;
+}
 
 @Component({
   selector: 'app-root',
@@ -10,9 +16,9 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  deliveryNumber = '+4961022021603';//+4961022021603
-  visitorNumber;
-  numberList;
+  deliveryContact: ContactData;
+  visitorContact: ContactData;
+  contacts: Array<ContactData> = new Array;
 
   constructor(public dialog: MatDialog,
               private snackBar: MatSnackBar,
@@ -23,17 +29,36 @@ export class AppComponent implements OnInit{
     headers = headers.append('Accept', 'application/json');
     headers = headers.append('Authorization', 'Basic bXV0aW5nLnFpbkBnbWFpbC5jb206cGVraW5nNDE3');
     this.http.get('https://api.sipgate.com/v2/contacts', {headers: headers}).subscribe(res => {
-      this.numberList = res['items'];
-      this.deliveryNumber = this.numberList[0].numbers[0].number;
-      this.visitorNumber = this.numberList[1].numbers[0].number;
+      for(var i = 0; i < res['items'].length; i++) {
+        if (res['items'][i].name == 'Warenannahme ' && !this.deliveryContact){
+          this.deliveryContact = {
+            name: res['items'][i].name,
+            number: res['items'][i].numbers[0].number
+          }
+          continue;
+        }
+        else if (res['items'][i].name == 'Besucher ' && !this.visitorContact){
+          this.visitorContact = {
+            name: res['items'][i].name,
+            number: res['items'][i].numbers[0].number
+          }
+          continue;
+        } else {
+          this.contacts.push({
+            name: res['items'][i].name,
+            number: res['items'][i].numbers[0].number
+          });
+        }
+      }
+      console.log(this.contacts);
     })
   }
 
-  openCall(number) {
+  openCall(contact: ContactData) {
     const callDialog = this.dialog.open(CallDialog, {
       width: '500px',
       height: '500px',
-      data: {number: number}
+      data: {contact: contact}
     });
     callDialog.afterClosed().subscribe(result => {
       this.snackBar.open(result,'',{duration: 3000});
@@ -41,6 +66,13 @@ export class AppComponent implements OnInit{
   }
 
   openContacts(){
-    
+    const contactsDialog = this.dialog.open(ContactsDialog, {
+      width: '800px',
+      height: '600px',
+      data: {contacts: this.contacts}
+    });
+    contactsDialog.afterClosed().subscribe(result => {
+      if(result)this.openCall(result);
+    });
   }
 }

@@ -1,0 +1,25 @@
+mat-form-field {
+    width: 100%;
+}
+
+td.mat-cell, th.mat-header-cell {
+    font-size: 28pt;
+    padding: 15px 0px 15px 24px !important;
+}
+table {
+    width: 100%;
+}
+
+mat-cell {
+    display:flex !important;
+    justify-content:center!important;
+}
+
+mat-header-cell {
+    display:flex;
+    justify-content:center;
+}
+
+mat-form-field {
+    font-size: 28pt;
+}

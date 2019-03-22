@@ -1,21 +1,21 @@
 <div style="text-align:center">
   <h1 class="mat-display-1" style="margin-top: 40px; margin-bottom: 50px;">Willkommen bei Diebold Nixdorf</h1>
   <div fxLayout="rows" fxLayoutAlign="center">
-    <mat-card class="main-card" (click)="openCall(this.deliveryNumber)">
+    <mat-card class="main-card" (click)="openCall(this.deliveryContact)">
       <mat-card-title>
         Warenannahme
       </mat-card-title>
       <img mat-card-image src="../assets/box.svg">
     </mat-card>
-    <mat-card class="main-card" (click)="openCall(this.visitorNumber)">
+    <mat-card class="main-card" (click)="openCall(this.visitorContact)">
       <mat-card-title>
         Besucher
       </mat-card-title>
       <img mat-card-image src="../assets/handshake.svg">
     </mat-card>
-    <mat-card class="main-card">
+    <mat-card class="main-card" (click)="openContacts()">
       <mat-card-title>
-        Mitarbeiter
+        Kontakt suchen
       </mat-card-title>
       <img mat-card-image src="../assets/team.svg">
     </mat-card>

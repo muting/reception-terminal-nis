@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { UA } from 'sip.js';
+import { ContactData } from '../app.component';
 
 @Component({
   selector: 'calldialog',
@@ -11,28 +12,31 @@ export class CallDialog implements OnInit{
   session;
   processing = false;
   calling = false;
-  number;
+  contact: ContactData;
   terminatetext= 'Aufgelegt';
+
   constructor(public dialogRef: MatDialogRef<CallDialog>, @Inject(MAT_DIALOG_DATA) public data: any) { 
     dialogRef.disableClose = true;
     dialogRef.backdropClick().subscribe(() => {
-      this.hangUp(false);
+      this.hangUp();
     })
-    this.number = data.number;
+    this.contact = data.contact;
   }
 
   ngOnInit(){
-    this.userAgent = new UA( {
-      uri: '2708118e0@sipgate.de',
-      authorizationUser: '2708118e0',
-      password: '7VMduU6yNtJJ',
-      displayName: 'Terminal',
-      transportOptions: {
-        wsServers: ['wss://tls01.sipgate.de:443']
-      },
-      hackWssInTransport: true
-    });
-    this.call();
+    if (this.contact){
+      this.userAgent = new UA( {
+        uri: '2708118e0@sipgate.de',
+        authorizationUser: '2708118e0',
+        password: '7VMduU6yNtJJ',
+        displayName: 'Terminal',
+        transportOptions: {
+          wsServers: ['wss://tls01.sipgate.de:443']
+        },
+        hackWssInTransport: true
+      });
+      this.call();
+    }
   }
 
   call(){
@@ -46,7 +50,7 @@ export class CallDialog implements OnInit{
         }
         }
     };
-    var currentsession = this.userAgent.invite(this.number, options); 
+    var currentsession = this.userAgent.invite(this.contact.number, options); 
     this.session = currentsession;
     currentsession.on('trackAdded', function() {
       console.log("Track added.");
@@ -71,11 +75,11 @@ export class CallDialog implements OnInit{
     });
     currentsession.on('failed', () => {
       console.log('call failed');
-      this.terminatetext = 'Anruf gescheitert.';
+      this.terminatetext = 'Anruf unterbrochen.';
     });
     currentsession.on('terminated', () => {
       console.log('call terminated');
-      this.hangUp(true);
+      this.hangUp();
     });
     currentsession.on('accepted', () => {
       this.processing = false;
@@ -87,15 +91,13 @@ export class CallDialog implements OnInit{
     });
     currentsession.on('cancel', () =>{
       console.log('call canceled');
-      this.terminatetext = 'Anruf abgebrochen.';
       this.dialogRef.close(this.terminatetext);
     });
   }
 
-  hangUp(terminated: boolean){
-    if (!terminated) this.session.terminate();
+  hangUp(){
+    if (this.session) this.session.terminate();
     this.dialogRef.close(this.terminatetext);
     this.userAgent.stop();
-    this.userAgent.unregister();
   }
 }
