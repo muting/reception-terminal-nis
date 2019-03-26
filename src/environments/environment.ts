@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  sipuser: '2708118e0',
+  sipPw: '7VMduU6yNtJJ',
+  apiAuth: 'bXV0aW5nLnFpbkBnbWFpbC5jb206cGVraW5nNDE3'
 };
 
 /*

@@ -1,9 +1,10 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, Renderer2} from '@angular/core';
 import { CallDialog } from './components/calldialog';
 import { ContactsDialog } from './components/contactsdialog';
 import { MatDialog } from '@angular/material';
 import { MatSnackBar } from '@angular/material/snack-bar'; 
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { environment } from 'src/environments/environment';
 
 export interface ContactData {
   name: string;
@@ -22,12 +23,17 @@ export class AppComponent implements OnInit{
 
   constructor(public dialog: MatDialog,
               private snackBar: MatSnackBar,
-              private http: HttpClient) {}
+              private http: HttpClient,
+              private renderer: Renderer2) {
+              // renderer.listen('document', 'contextmenu', (event) => {
+              //   return false;
+              // })
+              }
 
   ngOnInit() {
     let headers = new HttpHeaders();
     headers = headers.append('Accept', 'application/json');
-    headers = headers.append('Authorization', 'Basic bXV0aW5nLnFpbkBnbWFpbC5jb206cGVraW5nNDE3');
+    headers = headers.append('Authorization', 'Basic '+ environment.apiAuth);
     this.http.get('https://api.sipgate.com/v2/contacts', {headers: headers}).subscribe(res => {
       for(var i = 0; i < res['items'].length; i++) {
         if (res['items'][i].name == 'Warenannahme ' && !this.deliveryContact){

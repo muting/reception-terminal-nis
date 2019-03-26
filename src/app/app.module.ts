@@ -1,12 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http'; 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CallDialog } from './components/calldialog';
 import { ContactsDialog } from './components/contactsdialog';
+import { KeyboardPanel } from './components/contactsdialog';
 
 //Angular Material
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -20,12 +22,14 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTableModule} from '@angular/material';
 import {MatPaginatorModule} from '@angular/material/paginator'; 
 import {MatInputModule} from '@angular/material';
+import {MatIconModule} from '@angular/material/icon'; 
 
 @NgModule({
   declarations: [
     AppComponent,
     CallDialog,
-    ContactsDialog
+    ContactsDialog,
+    KeyboardPanel
   ],
   imports: [
     BrowserModule,
@@ -42,13 +46,16 @@ import {MatInputModule} from '@angular/material';
     MatFormFieldModule,
     MatTableModule,
     MatPaginatorModule,
-    MatInputModule
+    MatInputModule,
+    FormsModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
     CallDialog,
-    ContactsDialog
+    ContactsDialog,
+    KeyboardPanel
   ]
 })
 export class AppModule { }

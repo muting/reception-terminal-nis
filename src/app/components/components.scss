@@ -1,25 +1,59 @@
-mat-form-field {
+mat-form-field, table {
     width: 100%;
 }
-
 td.mat-cell, th.mat-header-cell {
     font-size: 28pt;
     padding: 15px 0px 15px 24px !important;
 }
-table {
-    width: 100%;
-}
-
 mat-cell {
     display:flex !important;
     justify-content:center!important;
 }
-
 mat-header-cell {
     display:flex;
     justify-content:center;
 }
-
 mat-form-field {
     font-size: 28pt;
+    height: 120px;
+}
+.mat-form-field-wrapper {
+    padding-bottom: 0px!important;
+}
+keyboard-panel, .simple-keyboard {
+    min-width: 1024px;
+    min-height: 307px;
+}
+.keyboard-container {
+    background: #fafafa;
+    box-shadow: 0 -1px 5px 0 rgba(0,0,0,.12)
+}
+::ng-deep.simple-keyboard.hg-theme-default.hg-layout-default .hg-button {
+    height: 65px;
+    font-size: 20pt;
+}
+::ng-deep.simple-keyboard.hg-theme-default.hg-layout-default .hg-button.close {
+    height: 40px;
+    font-size: 14pt;
+}
+::ng-deep.simple-keyboard.hg-theme-default.hg-layout-default .hg-button.bksp {
+    width: 120px;
+}
+::ng-deep.simple-keyboard.hg-theme-default.hg-layout-default .hg-button.tab {
+    width: 25px;
+}
+::ng-deep.simple-keyboard.hg-theme-default.hg-layout-default .hg-button.lock {
+    width: 50px;
+}
+::ng-deep.simple-keyboard.hg-theme-default.hg-layout-default .hg-button.shift {
+    width: 70px;
+}
+::ng-deep.simple-keyboard.hg-theme-default.hg-layout-default .hg-button.shift2 {
+    width: 210px;
+}
+::ng-deep.simple-keyboard.hg-theme-default.hg-layout-default .hg-button.spacer {
+    width: 80px;
+}
+::ng-deep.simple-keyboard.hg-theme-default.hg-layout-default .hg-button.spacer2 {
+    width: 60px;
 }

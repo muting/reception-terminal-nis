@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { UA } from 'sip.js';
 import { ContactData } from '../app.component';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'calldialog',
@@ -26,9 +27,9 @@ export class CallDialog implements OnInit{
   ngOnInit(){
     if (this.contact){
       this.userAgent = new UA( {
-        uri: '2708118e0@sipgate.de',
-        authorizationUser: '2708118e0',
-        password: '7VMduU6yNtJJ',
+        uri: environment.sipuser+'@sipgate.de',
+        authorizationUser: environment.sipuser,
+        password: environment.sipPw,
         displayName: 'Terminal',
         transportOptions: {
           wsServers: ['wss://tls01.sipgate.de:443']

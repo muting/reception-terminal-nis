@@ -1,31 +1,38 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSort, MatTableDataSource } from '@angular/material';
+import { Component, Inject, OnInit, ViewContainerRef, Host } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource } from '@angular/material';
+import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import { ContactData } from '../app.component';
+import Keyboard from 'simple-keyboard';
+import { ComponentPortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'contactsdialog',
   templateUrl: './contactsdialog.html',
   styleUrls: ['./components.scss']
 })
-export class ContactsDialog implements OnInit{
+export class ContactsDialog {
   displayedColumns: string[] = ['name', 'number'];
   dataSource: MatTableDataSource<ContactData>;
+  overlayRef;
   contacts;
+  value;
 
-  @ViewChild(MatSort) sort: MatSort;
-
-  constructor(public dialogRef: MatDialogRef<ContactsDialog>, @Inject(MAT_DIALOG_DATA) public data: any) { 
+  constructor(
+    private overlay: Overlay,
+    public viewContainerRef: ViewContainerRef,
+    public dialogRef: MatDialogRef<ContactsDialog>, 
+    @Inject(MAT_DIALOG_DATA) public data: any
+    ){ 
     dialogRef.disableClose = true;
     dialogRef.backdropClick().subscribe(() => {
       this.dialogRef.close();
     })
+    dialogRef.beforeClosed().subscribe(() => {
+      this.closeKeyboard();
+    })
     this.dataSource = new MatTableDataSource(data.contacts);
     this.contacts = data.contacts;
-  }
-
-  ngOnInit(){
-    this.dataSource.sort = this.sort;
   }
 
   applyFilter(filterValue: string) {
@@ -39,5 +46,99 @@ export class ContactsDialog implements OnInit{
 
   call(contact) {
     this.dialogRef.close(contact);
+  }
+
+  openKeyboard(){
+    if (!this.overlayRef || this.overlayRef['_host'] == null) {
+      let config = new OverlayConfig({
+        width: '100%',
+        height: '400px',
+        backdropClass: ''
+      });
+  
+      config.positionStrategy = this.overlay
+        .position()
+        .global()
+        .centerHorizontally()
+        .bottom('0');
+  
+      this.overlayRef = this.overlay.create(config);
+      this.overlayRef.attach(new ComponentPortal(KeyboardPanel, this.viewContainerRef));
+    }
+  }
+
+  closeKeyboard(){
+    if (this.overlayRef) this.overlayRef.dispose();
+  }
+}
+
+@Component({
+  selector: 'keyboard-panel',
+  template: '<div class="keyboard-container"> <div class="simple-keyboard"></div> </div>',
+  styleUrls: ['./components.scss']
+})
+export class KeyboardPanel implements OnInit {
+keyboard;
+_dialog;
+
+  constructor(
+    @Host() dialog: ContactsDialog
+  ){
+    this._dialog = dialog;
+  }
+
+  ngOnInit() {
+    this.keyboard = new Keyboard({
+      onChange: input => this.onChange(input),
+      onKeyPress: input => this.onKeyPress(input),
+      layout: {
+        'default': [
+          '{close}',
+          '{^spacer} 1 2 3 4 5 6 7 8 9 0 ß {bksp}',
+          '{tabspacer} q w e r t z u i o p ü {spacer}',
+          '{lock} a s d f g h j k l ö ä {spacer2}',
+          '{shift} y x c v b n m {shift2}',
+          '{space}'
+        ]
+      },
+      display: {
+        '{close}': 'Schließen',
+        '{bksp}': '←',
+        '{enter}': ' ',
+        '{shift}': ' ',
+        '{space}': 'Leerzeichen',
+        '{tabspacer}': ' ',
+        '{lock}': ' ',
+        '{shift2}': ' ',
+        '{spacer}': ' ',
+        '{spacer2}': ' ',
+        '{^spacer}': ' ',
+        'q': 'Q', 'w': 'W', 'e': 'E','r': 'R','t': 'T','z': 'Z','u': 'U','i': 'I','o': 'O','p': 'P','ü': 'Ü',
+        'a': 'A','s': 'S','d': 'D','f': 'F','g': 'G','h': 'H','j': 'J','k': 'K','l': 'L','ö': 'Ö','ä': 'Ä',
+        'y': 'Y','x': 'X','c': 'C','v': 'V','b': 'B','n': 'N','m': 'M',
+      },
+      buttonTheme: [
+        { class: "close", buttons: "{close}" },
+        { class: "bksp", buttons: "{bksp}" },
+        { class: "tab", buttons: "{tabspacer}" },
+        { class: "lock", buttons: "{lock}" },
+        { class: "shift", buttons: "{shift}" },
+        { class: "shift2", buttons: "{shift2}" },
+        { class: "spacer", buttons: "{spacer}" },
+        { class: "spacer2", buttons: "{spacer2}" },
+      ]
+    });
+    this.keyboard.setInput(this._dialog.value);
+  }
+
+  onChange(input){
+    this._dialog.value = input;
+    this._dialog.applyFilter(input);
+  }
+
+  onKeyPress(input){
+    if(input == "{close}"){
+      this._dialog.overlayRef.dispose();
+    }
   }
 }
