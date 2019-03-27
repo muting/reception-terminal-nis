@@ -24,6 +24,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatInputModule} from '@angular/material';
 import {MatIconModule} from '@angular/material/icon'; 
 
+import { NgScrollbarModule } from 'ngx-scrollbar';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +51,7 @@ import {MatIconModule} from '@angular/material/icon';
     MatInputModule,
     FormsModule,
     MatIconModule,
+    NgScrollbarModule
   ],
   providers: [],
   bootstrap: [AppComponent],

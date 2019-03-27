@@ -52,7 +52,6 @@ export class ContactsDialog {
     if (!this.overlayRef || this.overlayRef['_host'] == null) {
       let config = new OverlayConfig({
         width: '100%',
-        height: '400px',
         backdropClass: ''
       });
   
@@ -93,26 +92,22 @@ _dialog;
       onKeyPress: input => this.onKeyPress(input),
       layout: {
         'default': [
-          '{close}',
-          '{^spacer} 1 2 3 4 5 6 7 8 9 0 ß {bksp}',
+          '{close} 1 2 3 4 5 6 7 8 9 0 ß {bksp}',
           '{tabspacer} q w e r t z u i o p ü {spacer}',
           '{lock} a s d f g h j k l ö ä {spacer2}',
-          '{shift} y x c v b n m {shift2}',
-          '{space}'
+          '{shift} y x c v b n m {space}'
         ]
       },
       display: {
-        '{close}': 'Schließen',
         '{bksp}': '←',
         '{enter}': ' ',
         '{shift}': ' ',
         '{space}': 'Leerzeichen',
         '{tabspacer}': ' ',
         '{lock}': ' ',
-        '{shift2}': ' ',
         '{spacer}': ' ',
         '{spacer2}': ' ',
-        '{^spacer}': ' ',
+        '{close}': '&#10005;',
         'q': 'Q', 'w': 'W', 'e': 'E','r': 'R','t': 'T','z': 'Z','u': 'U','i': 'I','o': 'O','p': 'P','ü': 'Ü',
         'a': 'A','s': 'S','d': 'D','f': 'F','g': 'G','h': 'H','j': 'J','k': 'K','l': 'L','ö': 'Ö','ä': 'Ä',
         'y': 'Y','x': 'X','c': 'C','v': 'V','b': 'B','n': 'N','m': 'M',
@@ -123,7 +118,7 @@ _dialog;
         { class: "tab", buttons: "{tabspacer}" },
         { class: "lock", buttons: "{lock}" },
         { class: "shift", buttons: "{shift}" },
-        { class: "shift2", buttons: "{shift2}" },
+        { class: "space", buttons: "{space}" },
         { class: "spacer", buttons: "{spacer}" },
         { class: "spacer2", buttons: "{spacer2}" },
       ]
@@ -137,7 +132,7 @@ _dialog;
   }
 
   onKeyPress(input){
-    if(input == "{close}"){
+    if(input == '{close}'){
       this._dialog.overlayRef.dispose();
     }
   }

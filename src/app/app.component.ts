@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material';
 import { MatSnackBar } from '@angular/material/snack-bar'; 
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
+import schedule from 'node-schedule'
 
 export interface ContactData {
   name: string;
@@ -31,6 +32,33 @@ export class AppComponent implements OnInit{
               }
 
   ngOnInit() {
+    this.getContacts();
+    schedule.scheduleJob('0 0 * * *', () => { this.getContacts() });
+  }
+
+  openCall(contact: ContactData) {
+    const callDialog = this.dialog.open(CallDialog, {
+      width: '500px',
+      height: '500px',
+      data: {contact: contact}
+    });
+    callDialog.afterClosed().subscribe(result => {
+      this.snackBar.open(result,'',{duration: 3000});
+    });
+  }
+
+  openContacts(){
+    const contactsDialog = this.dialog.open(ContactsDialog, {
+      width: '800px',
+      height: '600px',
+      data: {contacts: this.contacts},
+    });
+    contactsDialog.afterClosed().subscribe(result => {
+      if(result)this.openCall(result);
+    });
+  }
+
+  getContacts(){
     let headers = new HttpHeaders();
     headers = headers.append('Accept', 'application/json');
     headers = headers.append('Authorization', 'Basic '+ environment.apiAuth);
@@ -57,28 +85,6 @@ export class AppComponent implements OnInit{
         }
       }
       console.log(this.contacts);
-    })
-  }
-
-  openCall(contact: ContactData) {
-    const callDialog = this.dialog.open(CallDialog, {
-      width: '500px',
-      height: '500px',
-      data: {contact: contact}
-    });
-    callDialog.afterClosed().subscribe(result => {
-      this.snackBar.open(result,'',{duration: 3000});
-    });
-  }
-
-  openContacts(){
-    const contactsDialog = this.dialog.open(ContactsDialog, {
-      width: '800px',
-      height: '600px',
-      data: {contacts: this.contacts}
-    });
-    contactsDialog.afterClosed().subscribe(result => {
-      if(result)this.openCall(result);
     });
   }
 }
