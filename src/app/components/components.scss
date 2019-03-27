@@ -2,13 +2,14 @@ mat-form-field, .table-container {
     width: 100%;
 }
 .table-container {
-    height: 440px;
+    height: 430px;
 }
 table {
     width: 95%;
 }
 ng-scrollbar {
-    --scrollbar-size: 30px;
+    --scrollbar-size: 40px;
+    --scrollbar-border-radius: 32px;
 }
 td.mat-cell {
     font-size: 24pt;
@@ -25,13 +26,15 @@ mat-form-field {
 .mat-form-field-wrapper {
     padding-bottom: 0px!important;
 }
-keyboard-panel, .simple-keyboard {
+::ng-deep keyboard-panel, .simple-keyboard {
     min-width: 1024px;
     min-height: 307px;
+    margin: 0 auto;
 }
 .keyboard-container {
     background: #fafafa;
     box-shadow: 0 -1px 5px 0 rgba(0,0,0,.12);
+    border-radius: 5px;
 }
 ::ng-deep.simple-keyboard.hg-theme-default.hg-layout-default .hg-button {
     height: 65px;

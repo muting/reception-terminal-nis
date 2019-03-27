@@ -26,9 +26,9 @@ export class AppComponent implements OnInit{
               private snackBar: MatSnackBar,
               private http: HttpClient,
               private renderer: Renderer2) {
-              // renderer.listen('document', 'contextmenu', (event) => {
-              //   return false;
-              // })
+              renderer.listen('document', 'contextmenu', (event) => {
+                return false;
+              })
               }
 
   ngOnInit() {
