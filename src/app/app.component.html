@@ -1,26 +1,39 @@
 <div style="text-align:center">
 
-  <img src="../assets/company logo.png" style="margin-top: 40px; margin-bottom: 10px">
+  <div class="image-container"> 
+    <div class="image-curtain"></div>
+    <img src="../assets/company logo.svg" class="logo">
+  </div>
   <div fxLayout="rows" fxLayoutAlign="center">
     <mat-card class="main-card" (click)="openCall(this.deliveryContact)">
       <mat-card-title>
         Warenannahme
       </mat-card-title>
-      <img mat-card-image src="../assets/box.svg">
+      <div class="image-container"> 
+        <div class="image-curtain"></div>
+        <img mat-card-image src="../assets/box.svg">
+      </div>
     </mat-card>
     <mat-card class="main-card" (click)="openCall(this.visitorContact)">
       <mat-card-title>
         Besucher
       </mat-card-title>
-      <img mat-card-image src="../assets/handshake.svg">
+      <div class="image-container"> 
+        <div class="image-curtain"></div>
+        <img mat-card-image src="../assets/handshake.svg">
+      </div>
     </mat-card>
     <mat-card class="main-card" (click)="openContacts()">
       <mat-card-title>
         Kontakt suchen
       </mat-card-title>
-      <img mat-card-image src="../assets/team.svg">
+      <div class="image-container"> 
+        <div class="image-curtain"></div>
+        <img mat-card-image src="../assets/team.svg">
+      </div>
     </mat-card>
   </div>
 </div>
 <router-outlet></router-outlet>
+<div class="smokes" style="z-index: -1; height: 100%;"></div>
 <img src="../assets/smokes.jpg" class="smokes"/>
