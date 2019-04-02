@@ -20,3 +20,16 @@ div {
     -ms-user-select: none;
     user-select: none;
 }
+.image-container {
+    position: relative;
+}
+.image-curtain {
+    float: left;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 1000;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+}

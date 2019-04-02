@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewContainerRef, Host } from '@angular/core';
+import { Component, Inject, OnInit, ViewContainerRef, Host, ViewChild, ElementRef } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource } from '@angular/material';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
@@ -17,6 +17,8 @@ export class ContactsDialog {
   overlayRef;
   contacts;
   value;
+
+  @ViewChild('input') inputField: ElementRef;
 
   constructor(
     private overlay: Overlay,
@@ -37,6 +39,10 @@ export class ContactsDialog {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  inputFocus() {
+    this.inputField.nativeElement.focus();
   }
 
   format(number) {
@@ -73,7 +79,7 @@ export class ContactsDialog {
 
 @Component({
   selector: 'keyboard-panel',
-  template: '<div class="keyboard-container"> <div class="simple-keyboard"></div> </div>',
+  template: '<div class="keyboard-container"> <div (mouseup)="this._dialog.inputFocus()" class="simple-keyboard"></div> </div>',
   styleUrls: ['./components.scss']
 })
 export class KeyboardPanel implements OnInit {
@@ -132,6 +138,7 @@ _dialog;
   }
 
   onKeyPress(input){
+    this._dialog.inputFocus();
     if(input == '{close}'){
       this._dialog.overlayRef.dispose();
     }

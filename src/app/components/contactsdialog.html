@@ -1,5 +1,5 @@
 <mat-form-field>
-    <input id="input" matInput (keyup)="applyFilter($event.target.value)" (focus)="openKeyboard()" (click)="openKeyboard()" placeholder="Suche" [(ngModel)]="value">
+    <input #input id="input" matInput (keyup)="applyFilter($event.target.value)" (focus)="openKeyboard()" (click)="openKeyboard()" placeholder="Suche" [(ngModel)]="value">
     <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value='';applyFilter(''); closeKeyboard()">
         <mat-icon>close</mat-icon>
     </button>
