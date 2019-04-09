@@ -12,7 +12,7 @@ import { ComponentPortal } from '@angular/cdk/portal';
   styleUrls: ['./components.scss']
 })
 export class ContactsDialog {
-  displayedColumns: string[] = ['name', 'number'];
+  displayedColumns: string[] = ['name'];
   dataSource: MatTableDataSource<ContactData>;
   overlayRef;
   contacts;
@@ -43,11 +43,6 @@ export class ContactsDialog {
 
   inputFocus() {
     this.inputField.nativeElement.focus();
-  }
-
-  format(number) {
-    let formatedNumber = parsePhoneNumberFromString(number);
-    return formatedNumber.formatInternational();
   }
 
   call(contact) {

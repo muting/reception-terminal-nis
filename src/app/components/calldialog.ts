@@ -13,15 +13,18 @@ export class CallDialog implements OnInit{
   session;
   processing = false;
   calling = false;
+  forwardcall = false;
   contact: ContactData;
   terminatetext= 'Aufgelegt';
 
   constructor(public dialogRef: MatDialogRef<CallDialog>, @Inject(MAT_DIALOG_DATA) public data: any) { 
     dialogRef.disableClose = true;
     dialogRef.backdropClick().subscribe(() => {
+      this.forwardcall = false;
       this.hangUp();
     })
     this.contact = data.contact;
+    this.forwardcall = data.forwardcall;
   }
 
   ngOnInit(){
@@ -76,7 +79,7 @@ export class CallDialog implements OnInit{
     });
     currentsession.on('failed', () => {
       console.log('call failed');
-      this.terminatetext = 'Anruf unterbrochen.';
+      this.terminatetext = 'Anruf gescheitert.';
     });
     currentsession.on('terminated', () => {
       console.log('call terminated');
@@ -85,6 +88,7 @@ export class CallDialog implements OnInit{
     currentsession.on('accepted', () => {
       this.processing = false;
       this.calling = true;
+      this.forwardcall = false;
       console.log('call accepted');
     });
     currentsession.on('progress', () =>{
@@ -98,7 +102,10 @@ export class CallDialog implements OnInit{
 
   hangUp(){
     if (this.session) this.session.terminate();
-    this.dialogRef.close(this.terminatetext);
+    this.dialogRef.close({ 
+      terminatetext: this.terminatetext,
+      forwardcall: this.forwardcall
+    });
     this.userAgent.stop();
   }
 }

@@ -5,7 +5,7 @@
     <img src="../assets/company logo.svg" class="logo">
   </div>
   <div fxLayout="rows" fxLayoutAlign="center">
-    <mat-card class="main-card" (click)="openCall(this.deliveryContact)">
+    <mat-card class="main-card" (click)="openCall(null, this.deliveryContacts, 0)">
       <mat-card-title>
         Warenannahme
       </mat-card-title>
@@ -14,7 +14,7 @@
         <img mat-card-image src="../assets/box.svg">
       </div>
     </mat-card>
-    <mat-card class="main-card" (click)="openCall(this.visitorContact)">
+    <mat-card class="main-card" (click)="openCall(null, this.visitorContacts, 0)">
       <mat-card-title>
         Besucher
       </mat-card-title>
