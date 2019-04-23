@@ -15,6 +15,7 @@ export class CallDialog implements OnInit{
   calling = false;
   forwardcall = false;
   contact: ContactData;
+  displayname;
   terminatetext= 'Aufgelegt';
 
   constructor(public dialogRef: MatDialogRef<CallDialog>, @Inject(MAT_DIALOG_DATA) public data: any) { 
@@ -25,6 +26,11 @@ export class CallDialog implements OnInit{
     })
     this.contact = data.contact;
     this.forwardcall = data.forwardcall;
+    if (this.contact.name.startsWith('Warenannahme') || this.contact.name.startsWith('Besucher')) {
+      this.displayname = this.contact.name.substring(this.contact.name.indexOf(' '));
+    } else {
+      this.displayname = this.contact.name;
+    }
   }
 
   ngOnInit(){
