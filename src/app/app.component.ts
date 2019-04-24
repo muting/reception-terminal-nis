@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material';
 import { MatSnackBar } from '@angular/material/snack-bar'; 
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 import schedule from 'node-schedule'
 
 export interface ContactData {
@@ -25,10 +26,14 @@ export class AppComponent implements OnInit{
   constructor(public dialog: MatDialog,
               private snackBar: MatSnackBar,
               private http: HttpClient,
-              private renderer: Renderer2) {
+              private renderer: Renderer2,
+              private translate: TranslateService) {
               renderer.listen('document', 'contextmenu', (event) => {
                 return false;
-              })
+              });
+
+              translate.setDefaultLang('de');
+              translate.use('de');
               }
 
   ngOnInit() {
@@ -36,6 +41,10 @@ export class AppComponent implements OnInit{
     schedule.scheduleJob('0 0 * * *', () => { this.getContacts() });
   }
 
+  changeLang(lang : string) {
+    this.translate.use(lang);
+  }
+  
   openCall(contact?: ContactData, contacts?: Array<ContactData>, count?) {
     var counter = count ? count : 0;
     if (contact || counter < contacts.length) {
@@ -52,12 +61,12 @@ export class AppComponent implements OnInit{
         if (!result.forwardcall) {
           this.snackBar.open(result.terminatetext,'',{duration: 4000});
         } else {
-          this.snackBar.open('nicht erreichbar, nächste Nummer wird angerufen','',{duration: 4000});
+          this.snackBar.open(this.translate.instant('alert.forward'),'',{duration: 4000});
           this.openCall(null, contacts, ++count);
         }
       });
     } else {
-      this.snackBar.open('Aktuell niemand erreichbar...','',{duration: 4000});
+      this.snackBar.open(this.translate.instant('alert.end'),'',{duration: 4000});
     }
   }
 
@@ -78,7 +87,7 @@ export class AppComponent implements OnInit{
     headers = headers.append('Authorization', 'Basic '+ environment.apiAuth);
     this.http.get('https://api.sipgate.com/v2/contacts', {headers: headers}).subscribe(res => {
       for(var i = 0; i < res['items'].length; i++) {
-        var name: String = res['items'][i].name;
+        var name: string = res['items'][i].name;
         if (name.startsWith('Warenannahme')){
           this.deliveryContacts.push({
             name: res['items'][i].name,
@@ -93,8 +102,11 @@ export class AppComponent implements OnInit{
           });
           continue;
         } else {
+          name = name.replace('_ae','ä');
+          name = name.replace('_oe','ö');
+          name = name.replace('_ue','ü');
           this.contacts.push({
-            name: res['items'][i].name,
+            name: name,
             number: res['items'][i].numbers[0].number
           });
         }

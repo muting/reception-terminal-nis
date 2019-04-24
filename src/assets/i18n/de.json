@@ -1,0 +1,23 @@
+{
+    "main": {
+        "delivery": "Warenannahme",
+        "visitor": "Besucher",
+        "search": "Kontakt suchen"
+    },
+    "call": {
+        "calling": "Anruf {{name}}",
+        "wait": "Es wird angerufen, bitte warten",
+        "notice": "Bitte laut in der Nähe vom Gerät sprechen",
+        "hangup": "Zum Auflegen außerhalb des Fensters drücken"
+    },
+    "search": {
+        "placeholder": "Suche",
+        "space": "Leerzeichen"
+    },
+    "alert": {
+        "hungup": "Aufgelegt",
+        "failed": "Anruf gescheitert",
+        "forward": "nicht erreichbar, nächste Nummer wird angerufen",
+        "end": "Aktuell niemand erreichbar..."
+    }
+}

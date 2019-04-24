@@ -8,11 +8,6 @@
     width: 100%;
     margin: 0;
 }
-.logo {
-    width: 40%;
-    margin-top: 60px; 
-    margin-bottom: 50px
-}
 .smokes {
     position: absolute;
     width: 100%;
@@ -31,4 +26,10 @@
 }
 .mat-card-actions {
     margin-bottom: 30px!important;
+}
+.grid-wrapper {
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    margin-top: 60px; 
+    margin-bottom: 30px;
 }

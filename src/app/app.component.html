@@ -1,13 +1,28 @@
 <div style="text-align:center">
-
-  <div class="image-container"> 
-    <div class="image-curtain"></div>
-    <img src="../assets/company logo.svg" class="logo">
-  </div>
+    <div class="grid-wrapper">
+        <div>
+          <div class="image-container" style="width: 35%; margin: auto; margin-top: 5%" (click)="changeLang('de')">
+            <div class="image-curtain"></div>
+            <img src="../assets/de.svg">
+          </div>
+        </div>
+        <div> 
+          <div class="image-container">
+            <div class="image-curtain"></div>
+            <img src="../assets/company logo.svg">
+          </div>
+        </div>
+        <div>
+          <div class="image-container" style="width: 35%; margin: auto; margin-top: 5%" (click)="changeLang('en')">
+            <div class="image-curtain"></div>
+            <img src="../assets/us.svg">
+          </div>
+        </div>
+    </div>
   <div fxLayout="rows" fxLayoutAlign="center">
     <mat-card class="main-card" (click)="openCall(null, this.deliveryContacts, 0)">
       <mat-card-title>
-        Warenannahme
+        {{'main.delivery'|translate}}
       </mat-card-title>
       <div class="image-container"> 
         <div class="image-curtain"></div>
@@ -16,7 +31,7 @@
     </mat-card>
     <mat-card class="main-card" (click)="openCall(null, this.visitorContacts, 0)">
       <mat-card-title>
-        Besucher
+        {{'main.visitor'|translate}}
       </mat-card-title>
       <div class="image-container"> 
         <div class="image-curtain"></div>
@@ -25,7 +40,7 @@
     </mat-card>
     <mat-card class="main-card" (click)="openContacts()">
       <mat-card-title>
-        Kontakt suchen
+        {{'main.search'|translate}}
       </mat-card-title>
       <div class="image-container"> 
         <div class="image-curtain"></div>

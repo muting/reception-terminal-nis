@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule, HttpClient } from '@angular/common/http'; 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CallDialog } from './components/calldialog';
@@ -25,6 +25,8 @@ import {MatInputModule} from '@angular/material';
 import {MatIconModule} from '@angular/material/icon'; 
 
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,14 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
     MatInputModule,
     FormsModule,
     MatIconModule,
-    NgScrollbarModule
+    NgScrollbarModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: (http: HttpClient) => new TranslateHttpLoader(http),
+          deps: [HttpClient]
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -5,6 +5,7 @@ import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import { ContactData } from '../app.component';
 import Keyboard from 'simple-keyboard';
 import { ComponentPortal } from '@angular/cdk/portal';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'contactsdialog',
@@ -82,7 +83,8 @@ keyboard;
 _dialog;
 
   constructor(
-    @Host() dialog: ContactsDialog
+    @Host() dialog: ContactsDialog,
+    private translate: TranslateService
   ){
     this._dialog = dialog;
   }
@@ -103,7 +105,7 @@ _dialog;
         '{bksp}': '←',
         '{enter}': ' ',
         '{shift}': ' ',
-        '{space}': 'Leerzeichen',
+        '{space}': this.translate.instant('search.space'),
         '{tabspacer}': ' ',
         '{lock}': ' ',
         '{spacer}': ' ',

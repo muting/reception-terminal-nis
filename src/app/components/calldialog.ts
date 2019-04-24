@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { UA } from 'sip.js';
 import { ContactData } from '../app.component';
 import { environment } from '../../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'calldialog',
@@ -16,9 +17,9 @@ export class CallDialog implements OnInit{
   forwardcall = false;
   contact: ContactData;
   displayname;
-  terminatetext= 'Aufgelegt';
+  terminatetext= this.translate.instant('alert.hungup');
 
-  constructor(public dialogRef: MatDialogRef<CallDialog>, @Inject(MAT_DIALOG_DATA) public data: any) { 
+  constructor(public dialogRef: MatDialogRef<CallDialog>, @Inject(MAT_DIALOG_DATA) public data: any, private translate: TranslateService) { 
     dialogRef.disableClose = true;
     dialogRef.backdropClick().subscribe(() => {
       this.forwardcall = false;
@@ -27,9 +28,9 @@ export class CallDialog implements OnInit{
     this.contact = data.contact;
     this.forwardcall = data.forwardcall;
     if (this.contact.name.startsWith('Warenannahme') || this.contact.name.startsWith('Besucher')) {
-      this.displayname = this.contact.name.substring(this.contact.name.indexOf(' '));
+      this.displayname = {name: this.contact.name.substring(this.contact.name.indexOf(' '))};
     } else {
-      this.displayname = this.contact.name;
+      this.displayname = {name: this.contact.name};
     }
   }
 
@@ -85,7 +86,7 @@ export class CallDialog implements OnInit{
     });
     currentsession.on('failed', () => {
       console.log('call failed');
-      this.terminatetext = 'Anruf gescheitert.';
+      this.terminatetext = this.translate.instant('alert.failed');
     });
     currentsession.on('terminated', () => {
       console.log('call terminated');

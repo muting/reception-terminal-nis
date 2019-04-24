@@ -1,10 +1,11 @@
-<h1 mat-dialog-title style="text-align: center; font-size: 20pt; margin-top: 20px; margin-bottom: 50px;">Anruf {{displayname}}</h1>
+<h1 mat-dialog-title style="text-align: center; font-size: 20pt; margin-top: 20px; margin-bottom: 50px;">{{'call.calling'|translate:displayname}}</h1>
 <div style="position: relative; justify-content: center;">
   <div class="image-container"> 
     <div class="image-curtain"></div>
     <mat-spinner *ngIf="processing" diameter=200 style="margin: 30px auto;"></mat-spinner>
     <img *ngIf="calling" src="../../assets/microphone.svg" style="margin: 0 126px; margin-bottom: 30px; width: 200px; height: 200px;">
   </div>
-  <div *ngIf="processing" style="text-align: center; bottom: 0; font-size: 14pt; font-family: Roboto;">Zum Auflegen außerhalb des Fensters drücken.</div>
-  <div *ngIf="calling" style="text-align: center; bottom: 0; font-size: 14pt; font-family: Roboto;">Bitte laut in der Nähe vom Gerät sprechen.</div>
+  <div *ngIf="processing" style="text-align: center; bottom: 0; font-size: 14pt; font-family: Roboto;">{{'call.wait'|translate}}</div>
+  <div *ngIf="calling" style="text-align: center; bottom: 0; font-size: 14pt; font-family: Roboto;">{{'call.notice'|translate}}</div>
+  <div style="text-align: center; bottom: 0; font-size: 14pt; font-family: Roboto; margin-top: 15px;">{{'call.hangup'|translate}}</div>
 </div>

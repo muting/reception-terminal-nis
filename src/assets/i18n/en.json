@@ -1,0 +1,23 @@
+{
+    "main": {
+        "delivery": "Delivery",
+        "visitor": "Visitor",
+        "search": "Search contact"
+    },
+    "call": {
+        "calling": "Calling {{name}}",
+        "wait": "Dialing, please hold",
+        "notice": "Please raise your voice near the device",
+        "hangup": "To hang up, tap outside the window"
+    },
+    "search": {
+        "placeholder": "Search",
+        "space": "Space"
+    },
+    "alert": {
+        "hungup": "Hung up",
+        "failed": "Call failed",
+        "forward": "Not available, dialing next possible number",
+        "end": "No one available right now..."
+    }
+}
