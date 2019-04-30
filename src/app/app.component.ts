@@ -82,6 +82,9 @@ export class AppComponent implements OnInit{
   }
 
   getContacts(){
+    this.deliveryContacts = new Array;
+    this.visitorContacts = new Array;
+    this.contacts = new Array;
     let headers = new HttpHeaders();
     headers = headers.append('Accept', 'application/json');
     headers = headers.append('Authorization', 'Basic '+ environment.apiAuth);

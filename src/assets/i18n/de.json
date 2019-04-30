@@ -8,7 +8,9 @@
         "calling": "Anruf {{name}}",
         "wait": "Es wird angerufen, bitte warten",
         "notice": "Bitte laut in der Nähe vom Gerät sprechen",
-        "hangup": "Zum Auflegen außerhalb des Fensters drücken"
+        "hangup": "Zum Auflegen außerhalb des Fensters drücken",
+        "notice2": "Keine Antwort oder Voicemail? Button drücken",
+        "forward": "Nächsten anrufen"
     },
     "search": {
         "placeholder": "Suche",

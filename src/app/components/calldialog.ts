@@ -15,6 +15,7 @@ export class CallDialog implements OnInit{
   processing = false;
   calling = false;
   forwardcall = false;
+  waiting = false;
   contact: ContactData;
   displayname;
   terminatetext= this.translate.instant('alert.hungup');
@@ -52,6 +53,8 @@ export class CallDialog implements OnInit{
 
   call(){
     this.processing = true;
+
+    setTimeout(()=>{this.waiting = true}, 17000);
 
     let options = {
         sessionDescriptionHandlerOptions: {
@@ -114,5 +117,10 @@ export class CallDialog implements OnInit{
       forwardcall: this.forwardcall
     });
     this.userAgent.stop();
+  }
+
+  forwardCall(){
+    this.forwardcall = true;
+    this.hangUp();
   }
 }

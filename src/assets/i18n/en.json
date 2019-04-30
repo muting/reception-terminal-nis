@@ -8,7 +8,9 @@
         "calling": "Calling {{name}}",
         "wait": "Dialing, please hold",
         "notice": "Please raise your voice near the device",
-        "hangup": "To hang up, tap outside the window"
+        "hangup": "To hang up, tap outside the window",
+        "notice2": "No response or voicemail? Press button",
+        "forward": "Forward call"
     },
     "search": {
         "placeholder": "Search",
