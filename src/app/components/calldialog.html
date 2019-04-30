@@ -8,8 +8,8 @@
   <div *ngIf="processing" style="text-align: center; bottom: 0; font-size: 14pt; font-family: Roboto;">{{'call.wait'|translate}}</div>
   <div *ngIf="calling" style="text-align: center; bottom: 0; font-size: 14pt; font-family: Roboto;">{{'call.notice'|translate}}</div>
   <div *ngIf="!forwardcall || !waiting" style="text-align: center; bottom: 0; font-size: 14pt; font-family: Roboto; margin-top: 15px;">{{'call.hangup'|translate}}</div>
-  <div *ngIf="forwardcall && waiting" style="text-align: center; bottom: 0; font-size: 14pt; font-family: Roboto; margin-top: 15px;">{{'call.notice2'|translate}}</div>
-  <div *ngIf="forwardcall && waiting" style="margin-top: 15px;" fxLayout="rows" fxLayoutAlign="center">
+  <div *ngIf="(forwardcall && waiting) || (forwardcall && calling)" style="text-align: center; bottom: 0; font-size: 14pt; font-family: Roboto; margin-top: 15px;">{{'call.notice2'|translate}}</div>
+  <div *ngIf="(forwardcall && waiting) || (forwardcall && calling)" style="margin-top: 15px;" fxLayout="rows" fxLayoutAlign="center">
     <button class="d-flex justify-content-center" mat-raised-button (click)="forwardCall()">{{'call.forward'|translate}}</button>
   </div>
 </div>
